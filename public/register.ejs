@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <link rel="icon" href="../statics/icon.png"/>
+    <title>Camera Express</title>
+    <link rel="stylesheet" type="text/css" href="../statics/forms.css">
+    <link rel="stylesheet" type="text/css" href="../statics/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Register</h1>
+    <form class="form" method="post" action='/users/register'>
+        <label class="form-label">
+            Full Name:
+            <input class="form-control" type="text" placeholder="Enter your Full Name" name="name" id="name"/>
+        </label>
+        <label class="form-label">
+            Email:
+            <input class="form-control" type="text" placeholder="Enter your Email " name="email" id="email"/>
+        </label>
+        <label class="form-label">
+            Password:
+            <input class="form-control" type="password" placeholder="Enter secure password"
+                   name="password1" id="password1"/>
+        </label>
+        <label class="form-label">
+            Confirm Password:
+            <input class="form-control" type="password" placeholder="Enter your password again"
+                   name="password2" id="password2"/>
+        </label>
+        <div class="form-button">
+            <input type="reset" class="btn btn-secondary"/>
+            <input type="submit" class="btn btn-primary"/>
+        </div>
+    </form>
+
+</div>
+
+<script src="../statics/bootstrap.min.js"></script>
+<script src="../statics/jquery-ui.min.js"></script>
+</body>
+</html>
