@@ -9,14 +9,137 @@
     <link rel="stylesheet" type="text/css" href="../statics/bootstrap.min.css">
 </head>
 <body>
-
-<header class="home-cover">
-    <%- include('nav'); -%>
-</header>
+<%- include('nav'); -%>
 <main class="main-content">
-    <h1>Heading</h1>
+    <div class="age-graph">
+        <canvas id="ageChart" width="400" height="400"></canvas>
+    </div>
+
+    <div class="salary-graph">
+        <canvas id="salaryChart" width="400" height="400"></canvas>
+    </div>
+    <div class="ageVSalaryChart">
+        <canvas id="ageVSalaryChart" width="400" height="400"></canvas>
+    </div>
 </main>
 <script src="statics/jquery-3.6.0.min.js"></script>
 <script src="statics/bootstrap.min.js"></script>
+<script src="statics/chart.js"></script>
+<script src="statics/chartjs-plugin-datalabels.js"></script>
+
+<!-- Chart Area -->
+<script>
+    const ageConfig = {
+        type: 'bar',
+        data: {
+            labels: ['1', '2', '3', '4', '5'],
+            datasets: [{
+                label: 'age',
+                data: [<%= age_data %>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ]
+            }]
+        },
+        options: {
+            response: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Age Graph'
+                }
+            }
+        }
+    };
+    const ageCtx = document.getElementById('ageChart').getContext('2d');
+    const ageChart = new Chart(ageCtx, ageConfig);
+
+
+    const salaryConfig = {
+        type: 'bar',
+        data: {
+            labels: ['1', '2', '3', '4', '5'],
+            datasets: [{
+                label: 'Salary',
+                data: [<%= salary_data %>],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ]
+            }]
+        },
+        options: {
+            response: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Salary Graph'
+                }
+            }
+        }
+    };
+    const salaryCtx = document.getElementById('salaryChart').getContext('2d');
+    const salaryChart = new Chart(salaryCtx, salaryConfig);
+
+
+    const ageVSalaryConfig = {
+        type: 'line',
+        data: {
+            labels: [<%= age_data %>],
+            datasets: [{
+                label: 'age',
+                data: [<%= salary_data %>],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            response: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                title: {
+                    display: true,
+                    text: 'Age Vs Salary'
+                }
+            }
+        }
+    };
+
+    const ageVSalaryCtx = document.getElementById('ageVSalaryChart').getContext('2d');
+    const ageVSalaryChart = new Chart(ageVSalaryCtx, ageVSalaryConfig);
+</script>
 </body>
 </html>

@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="/statics/main.css">
     <link rel="stylesheet" type="text/css" href="/statics/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/statics/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchpanes/2.0.2/css/searchPanes.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
 </head>
 <body>
     <%- include('nav'); -%>
@@ -33,11 +35,35 @@
             </tbody>
         </table>
     </div>
+    <script src="statics/bootstrap.min.js"></script>
     <script src="/statics/jquery-3.6.0.min.js"></script>
     <script src="/statics/jquery.dataTables.min.js"></script>
+    <script src="/statics/dataTables.searchPanes.min.js"></script>
+    <script src="/statics/dataTables.select.min.js"></script>
+
     <script>
         $(document).ready(()=>{
-           $("#table").DataTable();
+            $('#table tfoot th').each(function() {
+                let title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+            let table = $('#table').DataTable({
+                searchPanes: {
+                    viewTotal: true
+                },
+                dom: 'Plfrtip'
+            });
+            table.columns().every( function() {
+                let that = this;
+
+                $('input', this.footer()).on('keyup change', function() {
+                    if (that.search() !== this.value) {
+                        that
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
         });
     </script>
 </body>
