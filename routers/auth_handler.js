@@ -7,8 +7,6 @@ const sqlite = require('sqlite3')
     Redirect to 'profile' on success.
 */
 
-salt = process.env.SALT
-
 function registration(req, res, cbf) {
     let db = new sqlite.Database('database.sql', sqlite.OPEN_READWRITE, (err)=>{
         if (err){
