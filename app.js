@@ -5,6 +5,7 @@ const home_router = require('./routers/home_router');
 const users_router = require('./routers/user_router');
 const employee_router = require('./routers/employees');
 
+const port = process.env.PORT || 3000
 
 const app = express();
 
@@ -39,7 +40,7 @@ app.use('/users', users_router);
 app.use('/employees', employee_router);
 app.use('', home_router);
 
-app.listen(8081, (err)=> {
+app.listen(port, (err)=> {
     if (err) console.log(err);
     console.log("Server running at: http://localhost:8081");
 })
