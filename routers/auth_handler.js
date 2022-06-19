@@ -45,7 +45,7 @@ function authenticate(email, password, cbf) {
     });
 }
 
-// Midware to allow authenticated users to visit restrected page
+// Middleware to allow authenticated users to visit restricted page
 function require_auth(req, res, next) {
     if (req.session.user) {
         next()
@@ -56,7 +56,7 @@ function require_auth(req, res, next) {
 }
 
 
-// Midware to allow unauthenticated user
+// Middleware to allow unauthenticated user
 function not_auth(req, res, next) {
     if (req.session.user) {
         req.session.error = 'Logged in already';
