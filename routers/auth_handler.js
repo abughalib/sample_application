@@ -6,6 +6,9 @@ const sqlite = require('sqlite3')
     password is hashed then inserted.
     Redirect to 'profile' on success.
 */
+
+salt = "a@%h-2$$42iy$f&7fta03tqrt_4bla6cak(!&f3k8%n5+na&d2"
+
 function registration(req, res, cbf) {
     let db = new sqlite.Database('database.sql', sqlite.OPEN_READWRITE, (err)=>{
         if (err){
