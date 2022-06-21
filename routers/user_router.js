@@ -2,7 +2,7 @@ const router = require('express').Router();
 const auth = require('./auth_handler')
 
 router.get('/login', auth.notAuth, (req, res)=>{
-    res.render('login')
+    res.render('login', {'error': ''})
 });
 
 router.post('/login', auth.notAuth, (req, res)=>{
@@ -20,7 +20,7 @@ router.post('/login', auth.notAuth, (req, res)=>{
         }else{
             req["session"].error = "Authentication Failed, Check credential";
             console.log("Authentication Failed, Check credential")
-            res.redirect('/users/login')
+            res.render('login', {'error': 'Authentication failed, Check Credentials'})
         }
     })
 });

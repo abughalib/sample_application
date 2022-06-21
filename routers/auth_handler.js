@@ -17,6 +17,11 @@ function registration(req, res, cbf) {
         if (err) {
             cbf(new Error("Cannot hash Password"));
         }
+        db.all(`SELECT * FROM Users WHERE email='${req.body.email}'`, (err, rows)=>{
+            if (err || rows.length > 1){
+                console.log('Email Already Exists');
+            }
+        });
         db.all(`INSERT INTO Users(name, email, password, salt)
         VALUES('${req.body.name}', '${req.body.email}', '${hash}', '${salt}')`);
         if (err) throw err;
@@ -37,7 +42,7 @@ function authenticate(email, password, cbf) {
        if (err) throw err;
     });
     db.all(`SELECT * from users WHERE email='${email}'`, (err, rows)=>{
-        if(err) return cbf(new Error("User not found!"));
+        if(err || rows.length === 0) return cbf(new Error("User not found!"));
         hash({password: password, salt: rows[0].salt}, (err, pass, salt, hash)=>{
             if(err) throw err;
             if(hash === rows[0].password) return cbf(null, rows[0])
